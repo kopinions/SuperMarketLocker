@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Xunit;
@@ -111,57 +110,136 @@ namespace SuperMarketLocker.Test
         }
     }
 
-    public class TicketInvalidException : Exception
-    {
-    }
+       
+   public class RobotFacts
+   {
+       [Fact]
+       public void should_get_a_valid_ticket_when_give_bag_to_smart_robot()
+       {
+           Bag bag = new Bag();
+           Locker locker = new Locker(1);
+           SmartRobot robot = new SmartRobot(new[] { locker });
+           var ticket = robot.Receive(bag);
+           Bag bag2 = locker.Pick(ticket);
+           Assert.Same(bag, bag2);
+       }
 
-    public class LockerFullException : Exception
-    {
-    }
+       [Fact]
+       public void should_fail_when_give_a_bag_to_smart_robot_and_locker_is_full()
+       {
+           Bag bag = new Bag();
+           Locker locker = new Locker(0);
+           SmartRobot robot = new SmartRobot(new[] { locker });
+           Assert.Throws<LockerFullException>(() => robot.Receive(bag));
+       }
 
-    public class Ticket
-    {
-    }
+       [Fact]
+       public void should_store_to_locker_which_has_more_capacity()
+       {
+           Locker locker1 = new Locker(2);
+           Locker locker2 = new Locker(2);
+           SmartRobot robot = new SmartRobot(new[] { locker1, locker2 });
+           Bag bag1 = new Bag();
+           Bag bag2 = new Bag();
+           robot.Receive(bag1);
+           var ticket = robot.Receive(bag2);
+           Assert.Same(bag2, locker1.Pick(ticket));
+       }
 
-    public class Locker
-    {
-        private readonly int _capacity;
-        private int _count;
-        private Dictionary<Ticket, Bag> _bags; 
+       [Fact]
+       public void should_pick_the_right_bag()
+       {
+           Locker locker1 = new Locker(2);
+           Locker locker2 = new Locker(2);
+           SmartRobot robot = new SmartRobot(new[] { locker1, locker2 });
+           Bag bag1 = new Bag();
+           Bag bag2 = new Bag();
+           robot.Receive(bag1);
+           var ticket = robot.Receive(bag2);
+           Assert.Same(bag2, robot.Pick(ticket));
+       }
 
-        public Locker(int capacity)
+//       [Fact]
+//       public void should_throw_exception_when_ticket_invalid()
+//       {
+//           Locker locker1 = new Locker(2);
+//           Locker locker2 = new Locker(2);
+//           SmartRobot robot = new SmartRobot(new[] { locker1, locker2 });
+//           Bag bag1 = new Bag();
+//           Bag bag2 = new Bag();
+//           robot.Receive(bag1);
+//           var ticket = robot.Receive(bag2);
+//           Assert.Same(bag2, robot.Pick(ticket));
+//       }
+
+       [Fact]
+       public void should_store_bag_to_locker_which_has_most_balance_rate()
+       {
+           Locker locker1 = new Locker(1);
+           Locker locker2 = new Locker(2);
+           BalanceSmartRobot robot = new BalanceSmartRobot(new[] { locker1, locker2 });
+           Bag bag1 = new Bag();
+           Bag bag2 = new Bag();
+           locker2.Store(bag1);
+           var ticket = robot.Receive(bag2);
+           Assert.Same(bag2, locker1.Pick(ticket));
+       }
+   }
+
+    public class BalanceSmartRobot
+    {
+        private Locker[] _lockers;
+
+        public BalanceSmartRobot(Locker[] lockers)
         {
-            _capacity = capacity;
-            _count = 0;
-            _bags = new Dictionary<Ticket, Bag>();
+            _lockers = lockers;
         }
 
-        public Ticket Store(Bag bag)
+        public Ticket Receive(Bag bag)
         {
-            if (_count >= _capacity)
+            foreach (var locker in _lockers.OrderByDescending(l => l.getBalence()))
             {
-                throw new LockerFullException();
+                return locker.Store(bag);
+
             }
-            _count++;
-            var ticket = new Ticket();
-            _bags.Add(ticket, bag);
-            return ticket;
+            throw new LockerFullException();
+
+        }
+    }
+
+    public class SmartRobot
+    {
+        private readonly Locker[] _lockers;
+
+        public SmartRobot(Locker[] lockers)
+        {
+            _lockers = lockers;
+        }
+
+        public Ticket Receive(Bag bag)
+        {
+            foreach (var locker in _lockers.OrderByDescending(l=>l.AvailableCount))
+            {
+                   return locker.Store(bag);
+                
+            }
+            throw new LockerFullException();
         }
 
         public Bag Pick(Ticket ticket)
         {
-            Bag bag;
-            if (_bags.ContainsKey(ticket))
+            foreach (var locker in _lockers)
             {
-                bag = _bags[ticket];
-                _bags.Remove(ticket);
-                return bag;
+                try
+                {
+                    return locker.Pick(ticket);
+                }
+                catch (TicketInvalidException)
+                {
+
+                }
             }
             throw new TicketInvalidException();
         }
-    }
-
-    public class Bag
-    {
     }
 }
