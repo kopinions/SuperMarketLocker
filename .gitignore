@@ -1,0 +1,8 @@
+*.exe
+*.dll
+[Bb]in/
+[Oo]bj
+*.sln.DotSettings.user
+*.user
+*.sln.docstates
+*.sln.cache
