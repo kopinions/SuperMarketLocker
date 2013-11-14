@@ -7,17 +7,15 @@ namespace SuperMarketLocker
         private readonly int _capacity;
         private Dictionary<Ticket, Bag> _bags;
         
-        public int AvailableCount
+        public int AvailableCapacity
         {
             get { return _capacity - _bags.Count; }
         }
         
         public double VacancyRate
         {
-            get { return AvailableCount / _capacity; }
+            get { return AvailableCapacity / _capacity; }
         }
-
-        
 
         public Locker(int capacity)
         {

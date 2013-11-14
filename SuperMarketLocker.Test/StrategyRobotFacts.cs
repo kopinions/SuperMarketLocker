@@ -57,7 +57,7 @@ namespace SuperMarketLocker.Test
         {
             Locker locker1 = new Locker(2);
             Locker locker2 = new Locker(2);
-            var strategyRobot = new StrategyRobot(new List<Locker> { locker2, locker1 }, RobotReceiveStrategies.MoreAvailableCount);
+            var strategyRobot = new StrategyRobot(new List<Locker> { locker2, locker1 }, AvailableLockerStrategies.MoreAvailableCapacity);
             Bag bag1 = new Bag();
             Bag bag2 = new Bag();
             strategyRobot.Receive(bag1);
@@ -70,7 +70,7 @@ namespace SuperMarketLocker.Test
         {
             Locker locker1 = new Locker(2);
             Locker locker2 = new Locker(2);
-            StrategyRobot robot = new StrategyRobot(new List<Locker> { locker2, locker1 }, RobotReceiveStrategies.MoreVacancyRate);
+            StrategyRobot robot = new StrategyRobot(new List<Locker> { locker2, locker1 }, AvailableLockerStrategies.MoreVacancyRate);
             Bag bag1 = new Bag();
             Bag bag2 = new Bag();
             robot.Receive(bag1);

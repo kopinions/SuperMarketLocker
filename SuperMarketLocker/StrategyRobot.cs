@@ -6,24 +6,24 @@ namespace SuperMarketLocker
     public class StrategyRobot
     {
         private readonly List<Locker> lockers;
-        private readonly Func<List<Locker>, Locker> availableCountReceiveStrategy = RobotReceiveStrategies.None;
+        private readonly Func<List<Locker>, Locker> availableLockerStrategy = AvailableLockerStrategies.None;
 
         public StrategyRobot(List<Locker> lockers)
         {
             this.lockers = lockers;
-            availableCountReceiveStrategy = RobotReceiveStrategies.None;
+            availableLockerStrategy = AvailableLockerStrategies.None;
         }
 
-        public StrategyRobot(List<Locker> lockers, Func<List<Locker>, Locker> availableCountReceiveStrategy)
+        public StrategyRobot(List<Locker> lockers, Func<List<Locker>, Locker> availableLockerStrategy)
         {
             this.lockers = lockers;
-            if (availableCountReceiveStrategy != null)
-                this.availableCountReceiveStrategy = availableCountReceiveStrategy;
+            if (availableLockerStrategy != null)
+                this.availableLockerStrategy = availableLockerStrategy;
         }
 
         public Ticket Receive(Bag bag)
         {
-            var availableLocker = availableCountReceiveStrategy(lockers);
+            var availableLocker = availableLockerStrategy(lockers);
             return availableLocker!= null ? availableLocker.Store(bag) : null;
         }
 
