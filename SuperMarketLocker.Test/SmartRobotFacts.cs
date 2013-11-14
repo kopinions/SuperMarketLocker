@@ -11,7 +11,7 @@ namespace SuperMarketLocker.Test
         {
             Bag bag = new Bag();
             Locker locker = new Locker(1);
-            SmartRobot robot = new SmartRobot(new[] { locker });
+            Robot robot = Robot.CreateSmartRobot(new[] { locker }, new SmartStrategy());
             var ticket = robot.Receive(bag);
             Bag bag2 = locker.Pick(ticket);
             Assert.Same(bag, bag2);
@@ -22,7 +22,7 @@ namespace SuperMarketLocker.Test
         {
             Bag bag = new Bag();
             Locker locker = new Locker(0);
-            SmartRobot robot = new SmartRobot(new[] { locker });
+            Robot robot = Robot.CreateSmartRobot(new[] { locker }, new SmartStrategy());
             Assert.Throws<LockerFullException>(() => robot.Receive(bag));
         }
 
@@ -31,7 +31,7 @@ namespace SuperMarketLocker.Test
         {
             Locker locker1 = new Locker(2);
             Locker locker2 = new Locker(2);
-            SmartRobot robot = new SmartRobot(new[] { locker1, locker2 });
+            Robot robot = Robot.CreateSmartRobot(new[] { locker1, locker2 }, new SmartStrategy());
             Bag bag1 = new Bag();
             Bag bag2 = new Bag();
             robot.Receive(bag1);
@@ -44,7 +44,7 @@ namespace SuperMarketLocker.Test
         {
             Locker locker1 = new Locker(2);
             Locker locker2 = new Locker(2);
-            SmartRobot robot = new SmartRobot(new[] { locker1, locker2 });
+            Robot robot = Robot.CreateSmartRobot(new[] { locker1, locker2 }, new SmartStrategy());
             Bag bag1 = new Bag();
             Bag bag2 = new Bag();
             robot.Receive(bag1);
