@@ -1,0 +1,5 @@
+C:\oobootcamp\SuperMarketLocker\SuperMarketLocker\bin\Debug\SuperMarketLocker.dll
+C:\oobootcamp\SuperMarketLocker\SuperMarketLocker\bin\Debug\SuperMarketLocker.pdb
+C:\oobootcamp\SuperMarketLocker\SuperMarketLocker\obj\Debug\ResolveAssemblyReference.cache
+C:\oobootcamp\SuperMarketLocker\SuperMarketLocker\obj\Debug\SuperMarketLocker.dll
+C:\oobootcamp\SuperMarketLocker\SuperMarketLocker\obj\Debug\SuperMarketLocker.pdb

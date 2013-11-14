@@ -1,4 +1,4 @@
-﻿namespace SuperMarketLocker.Test
+﻿namespace SuperMarketLocker
 {
     public class Bag
     {

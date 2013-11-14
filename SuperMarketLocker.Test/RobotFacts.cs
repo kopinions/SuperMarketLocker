@@ -1,4 +1,6 @@
-﻿using Xunit;
+
+using System.Collections.Generic;
+using Xunit;
 
 namespace SuperMarketLocker.Test
 {
@@ -9,19 +11,21 @@ namespace SuperMarketLocker.Test
         {
             Bag bag = new Bag();
             Locker locker = new Locker(1);
-            Robot robot = new Robot(new[]{locker});
+
+            Robot robot = new Robot(new List<Locker> { locker });
+
             var ticket = robot.Receive(bag);
             Bag bag2 = locker.Pick(ticket);
             Assert.Same(bag, bag2);
         }
 
         [Fact]
-        public void should_fail_when_give_a_bag_to_robot_and_locker_is_full()
+        public void should_return_null_when_give_a_bag_to_robot_and_locker_is_full()
         {
             Bag bag = new Bag();
             Locker locker = new Locker(0);
-            Robot robot = new Robot(new[]{locker});
-            Assert.Throws<LockerFullException>(() => robot.Receive(bag));
+            Robot robot = new Robot(new List<Locker> { locker });
+            Assert.Null(robot.Receive(bag));
         }
 
         [Fact]
@@ -29,7 +33,7 @@ namespace SuperMarketLocker.Test
         {
             Locker locker1 = new Locker(1);
             Locker locker2 = new Locker(1);
-            Robot robot = new Robot(new[] {locker1, locker2});
+            Robot robot = new Robot(new List<Locker> { locker1, locker2 });
             Bag bag1 = new Bag();
             Bag bag2 = new Bag();
             var ticket1 = robot.Receive(bag1);
@@ -42,7 +46,7 @@ namespace SuperMarketLocker.Test
         public void should_pick_bag_from_robot()
         {
             Bag bag = new Bag();
-            Robot robot = new Robot(new[]{new Locker(1)});
+            Robot robot = new Robot(new List<Locker> { new Locker(1) });
             var ticket = robot.Receive(bag);
             Assert.Same(bag, robot.Pick(ticket));
         }

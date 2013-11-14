@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SuperMarketLocker.Test
+namespace SuperMarketLocker
 {
     public class TicketInvalidException : Exception
     {

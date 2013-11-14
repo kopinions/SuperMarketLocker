@@ -1,42 +1,38 @@
-﻿namespace SuperMarketLocker.Test
+﻿using System.Collections.Generic;
+using System.Linq;
+
+
+namespace SuperMarketLocker
 {
     public class Robot
     {
-        private readonly Locker[] _lockers;
+        private readonly List<Locker> _lockers;
 
-        public Robot(Locker[] lockers)
+        public Robot(List<Locker> lockers)
         {
             _lockers = lockers;
         }
 
-        public Ticket Receive(Bag bag)
+        public virtual Ticket Receive(Bag bag)
         {
+            Ticket ticket = null;
             foreach (var locker in _lockers)
             {
-                try
-                {
-                    return locker.Store(bag);
-                }
-                catch (LockerFullException)
-                {
-                }
+                ticket = locker.Store(bag);
+                if (ticket != null) break;
             }
-            throw new LockerFullException();
+            return ticket;
         }
 
-        public Bag Pick(Ticket ticket)
+        public virtual Bag Pick(Ticket ticket)
         {
+            Bag bag = null;
             foreach (var locker in _lockers)
             {
-                try
-                {
-                    return locker.Pick(ticket);
-                }
-                catch (TicketInvalidException)
-                {
-                }
+                bag = locker.Pick(ticket);
+                if (bag != null) break;
             }
-            throw new TicketInvalidException();
+            return bag;
         }
     }
 }

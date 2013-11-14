@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.exe
 *.dll
 [Bb]in/
@@ -6,3 +7,51 @@
 *.user
 *.sln.docstates
 *.sln.cache
+=======
+*.DS_Store
+*.obj
+*.pdb
+*.suo
+*.user
+*.cache
+*.orig
+*.iws
+*.log
+*.pyc
+*.py~
+*.pid
+*.resharper
+*.csproj.ReSharper
+_ReSharper.*
+.git
+.hgignore
+.hgrc
+
+
+build-output
+build-ouput
+buildOutput
+tmp
+perflog
+
+Debug/*
+testResult/*
+testResults/*
+ErrorLogs/
+bin/
+obj/
+.idea/
+App_Data/*
+src/*/error*xml
+src/*/Logs/error*xml
+src/GlobalAssemblyInfo.cs
+
+
+Test/**/Release/*
+
+node_modules
+
+#unit test
+test-results.xml
+coverage
+>>>>>>> Qilin refactor the locker to return null then error instead throw exception.

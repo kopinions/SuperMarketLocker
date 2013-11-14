@@ -43,13 +43,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BalanceSmartRobot.cs" />
-    <Compile Include="BalanceSmartRobotFacts.cs" />
     <Compile Include="LockerFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotFacts.cs" />
-    <Compile Include="SmartRobot.cs" />
     <Compile Include="SmartRobotFacts.cs" />
+    <Compile Include="VacancyRateSmartRobotFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
