@@ -5,7 +5,7 @@ namespace SuperMarketLocker
 {
     public class VacancyRateSmartRobot : SmartRobot
     {
-        private List<Locker> _lockers;
+        private readonly List<Locker> _lockers;
 
 
         public VacancyRateSmartRobot(List<Locker> lockers) : base(lockers)
@@ -16,11 +16,7 @@ namespace SuperMarketLocker
         public override Ticket Receive(Bag bag)
         {
             var availableLocker = _lockers.OrderByDescending(l => l.VacancyRate).FirstOrDefault();
-            if (availableLocker != null)
-            {
-                return availableLocker.Store(bag);
-            }
-            return null;
+            return availableLocker != null ? availableLocker.Store(bag) : null;
         }
     }
 }

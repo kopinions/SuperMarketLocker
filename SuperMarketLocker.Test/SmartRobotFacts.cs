@@ -36,7 +36,6 @@ namespace SuperMarketLocker.Test
             robot.Receive(bag1);
             var ticket = robot.Receive(bag2);
             Assert.Same(bag2, locker1.Pick(ticket));
-
         }
 
         

@@ -12,9 +12,7 @@ namespace SuperMarketLocker.Test
         {
             Bag bag = new Bag();
             Locker locker = new Locker(1);
-
             StrategyRobot robot = new StrategyRobot(new List<Locker> { locker });
-
             var ticket = robot.Receive(bag);
             Bag bag2 = locker.Pick(ticket);
             Assert.Same(bag, bag2);

@@ -15,11 +15,7 @@ namespace SuperMarketLocker
         public override Ticket Receive(Bag bag)
         {
             var availableLocker = _lockers.OrderByDescending(locker => locker.AvailableCapacity).FirstOrDefault();
-            if (availableLocker != null)
-            {
-                return availableLocker.Store(bag);
-            }
-            return null;
+            return availableLocker != null ? availableLocker.Store(bag) : null;
         }
     }
 }

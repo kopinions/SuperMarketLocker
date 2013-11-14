@@ -10,7 +10,7 @@ namespace SuperMarketLocker.Test
         {
             Locker locker1 = new Locker(2);
             Locker locker2 = new Locker(2);
-            SmartRobot robot = new SmartRobot(new List<Locker> { locker1, locker2 });
+            VacancyRateSmartRobot robot = new VacancyRateSmartRobot(new List<Locker> { locker1, locker2 });
             Bag bag1 = new Bag();
             Bag bag2 = new Bag();
             robot.Receive(bag1);
