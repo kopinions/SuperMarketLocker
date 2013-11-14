@@ -45,7 +45,9 @@
     <Compile Include="Locker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Robot.cs" />
+    <Compile Include="RobotReceiveStrategies.cs" />
     <Compile Include="SmartRobot.cs" />
+    <Compile Include="StrategyRobot.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="VacancyRateSmartRobot.cs" />
   </ItemGroup>
