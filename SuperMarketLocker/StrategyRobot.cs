@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SuperMarketLocker
 {
@@ -29,13 +30,7 @@ namespace SuperMarketLocker
 
         public Bag Pick(Ticket ticket)
         {
-            Bag bag = null;
-            foreach (var locker in lockers)
-            {
-                bag = locker.Pick(ticket);
-                if (bag != null) break;
-            }
-            return bag;
+            return (from locker in lockers let bag = locker.Pick(ticket) where bag != null select bag).FirstOrDefault();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-
 namespace SuperMarketLocker
 {
     public class Robot
@@ -26,13 +25,7 @@ namespace SuperMarketLocker
 
         public virtual Bag Pick(Ticket ticket)
         {
-            Bag bag = null;
-            foreach (var locker in _lockers)
-            {
-                bag = locker.Pick(ticket);
-                if (bag != null) break;
-            }
-            return bag;
+            return (from locker in _lockers let bag = locker.Pick(ticket) where bag != null select bag).FirstOrDefault();
         }
     }
 }
