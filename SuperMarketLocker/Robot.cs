@@ -14,13 +14,7 @@ namespace SuperMarketLocker
 
         public virtual Ticket Receive(Bag bag)
         {
-            Ticket ticket = null;
-            foreach (var locker in _lockers)
-            {
-                ticket = locker.Store(bag);
-                if (ticket != null) break;
-            }
-            return ticket;
+            return (from locker in _lockers let ticket = locker.Store(bag) where ticket != null select ticket).FirstOrDefault();
         }
 
         public virtual Bag Pick(Ticket ticket)
