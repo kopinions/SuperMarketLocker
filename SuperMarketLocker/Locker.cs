@@ -18,6 +18,11 @@ namespace SuperMarketLocker
             get { return _capacity - _bags.Count; }
         }
 
+        public double Balance
+        {
+            get { return (AvailableCount / _capacity); }
+        }
+
         public Ticket Store(Bag bag)
         {
             if (_capacity == 0) throw new LockerFullException();
@@ -40,11 +45,6 @@ namespace SuperMarketLocker
                 return bag;
             }
             throw new TicketInvalidException();
-        }
-
-        public double getBalence()
-        {
-            return (AvailableCount/_capacity);
         }
     }
 }

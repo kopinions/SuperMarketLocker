@@ -32,14 +32,14 @@
             throw new TicketInvalidException();
         }
 
-        public static Robot CreateSmartRobot(Locker[] lockers, IStragegy smartStrategy)
+        public static Robot CreateSmartRobot(Locker[] lockers)
         {
-            return new Robot(lockers, smartStrategy);
+            return new Robot(lockers, new SmartStrategy());
         }
 
-        public static Robot CreateBalanceSmartRobot(Locker[] lockers, IStragegy balanceSmartRobotStrategy)
+        public static Robot CreateBalanceSmartRobot(Locker[] lockers)
         {
-            return new Robot(lockers, balanceSmartRobotStrategy);
+            return new Robot(lockers, new BalanceSmartRobotStrategy());
         }
     }
 }

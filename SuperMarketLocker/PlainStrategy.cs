@@ -6,12 +6,12 @@ namespace SuperMarketLocker
     {
         public Locker GetLocker(Locker[] lockers)
         {
-            var locker1 = lockers.FirstOrDefault(l => l.AvailableCount>0);
-            if (locker1 == null)
+            var locker = lockers.FirstOrDefault(l => l.AvailableCount > 0);
+            if (locker == null)
             {
                 throw new LockerFullException();
             }
-            return locker1;
+            return locker;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SuperMarketLocker.Test
         {
             var locker1 = new Locker(1);
             var locker2 = new Locker(2);
-            var robot = Robot.CreateBalanceSmartRobot(new[] { locker1, locker2 }, new BalanceSmartRobotStrategy());
+            var robot = Robot.CreateBalanceSmartRobot(new[] { locker1, locker2 });
             var bag1 = new Bag();
             var bag2 = new Bag();
             locker2.Store(bag1);

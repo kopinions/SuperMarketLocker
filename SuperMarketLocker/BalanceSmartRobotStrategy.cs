@@ -4,9 +4,9 @@ namespace SuperMarketLocker
 {
     public class BalanceSmartRobotStrategy : IStragegy
     {
-        public Locker GetLocker(Locker[] lockers1)
+        public Locker GetLocker(Locker[] lockers)
         {
-            var locker = lockers1.OrderByDescending(l => l.getBalence()).FirstOrDefault();
+            var locker = lockers.OrderByDescending(l => l.Balance).FirstOrDefault();
 
             if (locker == null)
             {
