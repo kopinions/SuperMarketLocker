@@ -6,3 +6,4 @@
 *.user
 *.sln.docstates
 *.sln.cache
+_ReSharper.*
