@@ -1,30 +1,25 @@
-﻿namespace SuperMarketLocker
+﻿using System.Linq;
+
+namespace SuperMarketLocker
 {
     public class Robot
     {
         private readonly Locker[] _lockers;
+        private readonly IStrategy _strategy;
 
-        public Robot(Locker[] lockers)
+        public Robot(Locker[] lockers, IStrategy strategy)
         {
             _lockers = lockers;
+            _strategy = strategy;
         }
 
-        public Ticket Receive(Bag bag)
+        public virtual Ticket Receive(Bag bag)
         {
-            foreach (var locker in _lockers)
-            {
-                try
-                {
-                    return locker.Store(bag);
-                }
-                catch (LockerFullException)
-                {
-                }
-            }
-            throw new LockerFullException();
+            var first = _strategy.GetLocker(_lockers);
+            return first.Store(bag);
         }
 
-        public Bag Pick(Ticket ticket)
+        public virtual Bag Pick(Ticket ticket)
         {
             foreach (var locker in _lockers)
             {
@@ -37,6 +32,16 @@
                 }
             }
             throw new TicketInvalidException();
+        }
+
+        public static Robot CreateSmartRobot(Locker[] lockers, IStrategy strategy)
+        {
+            return new Robot(lockers, strategy);
+        }
+
+        public static Robot CreateBalanceSmartRobot(Locker[] lockers, IStrategy strategy)
+        {
+            return new Robot(lockers, strategy);
         }
     }
 }
