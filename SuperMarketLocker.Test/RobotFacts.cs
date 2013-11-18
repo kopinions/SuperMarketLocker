@@ -21,7 +21,7 @@ namespace SuperMarketLocker.Test
             var bag = new Bag();
             var locker = new Locker(0);
             var robot = new Robot(new[]{locker}, new PlainStrategy());
-            Assert.Throws<LockerFullException>(() => robot.Receive(bag));
+            Assert.Null(robot.Receive(bag));
         }
 
         [Fact]

@@ -21,7 +21,7 @@ namespace SuperMarketLocker.Test
             var bag = new Bag();
             var locker = new Locker(0);
             Robot robot = Robot.CreateSmartRobot(new[] { locker }, new SmartStrategy());
-            Assert.Throws<LockerFullException>(() => robot.Receive(bag));
+            Assert.Null(robot.Receive(bag));
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace SuperMarketLocker.Test
            var bag2 = new Bag();
            robot.Receive(bag1);
            robot.Receive(bag2);
-           Assert.Throws<TicketInvalidException>(() => robot.Pick(new Ticket()));
+           Assert.Null(robot.Pick(new Ticket()));
        }
     }
 }

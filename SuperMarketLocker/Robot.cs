@@ -15,23 +15,13 @@ namespace SuperMarketLocker
 
         public virtual Ticket Receive(Bag bag)
         {
-            var first = _strategy.GetLocker(_lockers);
-            return first.Store(bag);
+            var locker = _strategy.GetLocker(_lockers);
+            return locker == null ? null : locker.Store(bag);
         }
 
         public virtual Bag Pick(Ticket ticket)
         {
-            foreach (var locker in _lockers)
-            {
-                try
-                {
-                    return locker.Pick(ticket);
-                }
-                catch (TicketInvalidException)
-                {
-                }
-            }
-            throw new TicketInvalidException();
+            return _lockers.Select(locker => locker.Pick(ticket)).FirstOrDefault(pick => pick != null);
         }
 
         public static Robot CreateSmartRobot(Locker[] lockers, IStrategy strategy)

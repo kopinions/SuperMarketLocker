@@ -6,13 +6,7 @@ namespace SuperMarketLocker
     {
         public Locker GetLocker(Locker[] lockers1)
         {
-            var lockers = lockers1.OrderByDescending(l => l.AvailableCount);
-            var first = lockers.FirstOrDefault(l => l.AvailableCount > 0);
-            if (first == null)
-            {
-                throw new LockerFullException();
-            }
-            return first;
+            return lockers1.OrderByDescending(l => l.AvailableCount).FirstOrDefault(l => l.AvailableCount > 0);
         }
     }
 }

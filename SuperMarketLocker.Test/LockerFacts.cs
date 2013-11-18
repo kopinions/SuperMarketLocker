@@ -21,7 +21,7 @@ namespace SuperMarketLocker.Test
             var locker = new Locker(1);
             locker.Store(bag);
             var anotherBag = new Bag();
-            Assert.Throws<LockerFullException>(() => locker.Store(anotherBag));
+            Assert.Null(locker.Store(anotherBag));
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace SuperMarketLocker.Test
             var ticket = locker.Store(bag);
             var pickedBag = locker.Pick(ticket);
             Assert.Same(bag, pickedBag);
-            Assert.Throws<TicketInvalidException>(() => locker.Pick(ticket));
+            Assert.Null(locker.Pick(ticket));
         }    
     }
 }

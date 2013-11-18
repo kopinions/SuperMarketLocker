@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Bag.cs" />
     <Compile Include="BalanceSmartStrategy.cs" />
-    <Compile Include="Exceptions.cs" />
     <Compile Include="Locker.cs" />
     <Compile Include="PlainStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

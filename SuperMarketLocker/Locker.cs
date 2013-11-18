@@ -5,7 +5,7 @@ namespace SuperMarketLocker
     public class Locker
     {
         private readonly int _capacity;
-        private Dictionary<Ticket, Bag> _bags; 
+        private readonly Dictionary<Ticket, Bag> _bags; 
 
         public Locker(int capacity)
         {
@@ -20,10 +20,9 @@ namespace SuperMarketLocker
 
         public Ticket Store(Bag bag)
         {
-            if (_capacity == 0) throw new LockerFullException();
             if (_bags.Count >= _capacity)
             {
-                throw new LockerFullException();
+                return null;
             }
             var ticket = new Ticket();
             _bags.Add(ticket, bag);
@@ -32,19 +31,18 @@ namespace SuperMarketLocker
 
         public Bag Pick(Ticket ticket)
         {
-            Bag bag;
             if (_bags.ContainsKey(ticket))
             {
-                bag = _bags[ticket];
+                Bag bag = _bags[ticket];
                 _bags.Remove(ticket);
                 return bag;
             }
-            throw new TicketInvalidException();
+            return null;
         }
 
-        public double getBalence()
+        public double GetBalence()
         {
-            return (AvailableCount/_capacity);
+            return AvailableCount/_capacity;
         }
     }
 }
