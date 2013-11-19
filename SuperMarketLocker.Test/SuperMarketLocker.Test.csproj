@@ -47,6 +47,7 @@
     <Compile Include="LockerFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotFacts.cs" />
+    <Compile Include="RobotManagerFacts.cs" />
     <Compile Include="SmartRobotFacts.cs" />
   </ItemGroup>
   <ItemGroup>

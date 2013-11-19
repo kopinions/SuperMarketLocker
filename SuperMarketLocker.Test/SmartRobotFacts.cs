@@ -9,8 +9,8 @@ namespace SuperMarketLocker.Test
         {
             var bag = new Bag();
             var locker = new Locker(1);
-            Robot robot = Robot.CreateSmartRobot(new[] { locker }, new SmartStrategy());
-            var ticket = robot.Receive(bag);
+            Robot robot = Robot.CreateSmartRobot(new[] { locker });
+            var ticket = robot.Store(bag);
             Bag bag2 = locker.Pick(ticket);
             Assert.Same(bag, bag2);
         }
@@ -20,8 +20,8 @@ namespace SuperMarketLocker.Test
         {
             var bag = new Bag();
             var locker = new Locker(0);
-            Robot robot = Robot.CreateSmartRobot(new[] { locker }, new SmartStrategy());
-            Assert.Null(robot.Receive(bag));
+            Robot robot = Robot.CreateSmartRobot(new[] { locker });
+            Assert.Null(robot.Store(bag));
         }
 
         [Fact]
@@ -29,11 +29,11 @@ namespace SuperMarketLocker.Test
         {
             var locker1 = new Locker(2);
             var locker2 = new Locker(2);
-            var robot = Robot.CreateSmartRobot(new[] { locker1, locker2 }, new SmartStrategy());
+            var robot = Robot.CreateSmartRobot(new[] { locker1, locker2 });
             var bag1 = new Bag();
             var bag2 = new Bag();
-            robot.Receive(bag1);
-            var ticket = robot.Receive(bag2);
+            robot.Store(bag1);
+            var ticket = robot.Store(bag2);
             Assert.Same(bag2, locker2.Pick(ticket));
         }
 
@@ -42,11 +42,11 @@ namespace SuperMarketLocker.Test
         {
             var locker1 = new Locker(2);
             var locker2 = new Locker(2);
-            Robot robot = Robot.CreateSmartRobot(new[] { locker1, locker2 }, new SmartStrategy());
+            Robot robot = Robot.CreateSmartRobot(new[] { locker1, locker2 });
             var bag1 = new Bag();
             var bag2 = new Bag();
-            robot.Receive(bag1);
-            var ticket = robot.Receive(bag2);
+            robot.Store(bag1);
+            var ticket = robot.Store(bag2);
             Assert.Same(bag2, robot.Pick(ticket));
         }
 
@@ -55,11 +55,11 @@ namespace SuperMarketLocker.Test
        {
            var locker1 = new Locker(2);
            var locker2 = new Locker(2);
-           Robot robot = Robot.CreateSmartRobot(new[] { locker1, locker2 }, new SmartStrategy());
+           Robot robot = Robot.CreateSmartRobot(new[] { locker1, locker2 });
            var bag1 = new Bag();
            var bag2 = new Bag();
-           robot.Receive(bag1);
-           robot.Receive(bag2);
+           robot.Store(bag1);
+           robot.Store(bag2);
            Assert.Null(robot.Pick(new Ticket()));
        }
     }

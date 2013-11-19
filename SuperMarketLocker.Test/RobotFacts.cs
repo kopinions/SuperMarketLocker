@@ -10,7 +10,7 @@ namespace SuperMarketLocker.Test
             var bag = new Bag();
             var locker = new Locker(1);
             var robot = new Robot(new[]{locker}, new PlainStrategy());
-            var ticket = robot.Receive(bag);
+            var ticket = robot.Store(bag);
             Bag bag2 = locker.Pick(ticket);
             Assert.Same(bag, bag2);
         }
@@ -21,7 +21,7 @@ namespace SuperMarketLocker.Test
             var bag = new Bag();
             var locker = new Locker(0);
             var robot = new Robot(new[]{locker}, new PlainStrategy());
-            Assert.Null(robot.Receive(bag));
+            Assert.Null(robot.Store(bag));
         }
 
         [Fact]
@@ -32,8 +32,8 @@ namespace SuperMarketLocker.Test
             var robot = new Robot(new[] {locker1, locker2}, new PlainStrategy());
             var bag1 = new Bag();
             var bag2 = new Bag();
-            var ticket1 = robot.Receive(bag1);
-            var ticket2 = robot.Receive(bag2);
+            var ticket1 = robot.Store(bag1);
+            var ticket2 = robot.Store(bag2);
             Assert.Same(bag1, locker1.Pick(ticket1));
             Assert.Same(bag2, locker2.Pick(ticket2));
         }
@@ -43,7 +43,7 @@ namespace SuperMarketLocker.Test
         {
             var bag = new Bag();
             var robot = new Robot(new[]{new Locker(1)}, new PlainStrategy());
-            var ticket = robot.Receive(bag);
+            var ticket = robot.Store(bag);
             Assert.Same(bag, robot.Pick(ticket));
         }
     }

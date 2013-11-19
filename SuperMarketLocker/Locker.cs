@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SuperMarketLocker
 {
@@ -31,6 +32,8 @@ namespace SuperMarketLocker
 
         public Bag Pick(Ticket ticket)
         {
+            if (ticket == null) return null;
+
             if (_bags.ContainsKey(ticket))
             {
                 Bag bag = _bags[ticket];
@@ -42,7 +45,7 @@ namespace SuperMarketLocker
 
         public double GetBalence()
         {
-            return AvailableCount/_capacity;
+            return _capacity == 0 ? 0 : AvailableCount/_capacity;
         }
     }
 }

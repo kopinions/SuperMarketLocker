@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace SuperMarketLocker
 {
@@ -13,7 +14,7 @@ namespace SuperMarketLocker
             _strategy = strategy;
         }
 
-        public virtual Ticket Receive(Bag bag)
+        public virtual Ticket Store(Bag bag)
         {
             var locker = _strategy.GetLocker(_lockers);
             return locker == null ? null : locker.Store(bag);
@@ -24,14 +25,19 @@ namespace SuperMarketLocker
             return _lockers.Select(locker => locker.Pick(ticket)).FirstOrDefault(pick => pick != null);
         }
 
-        public static Robot CreateSmartRobot(Locker[] lockers, IStrategy strategy)
+        public static Robot CreateRobot(Locker[] lockers)
         {
-            return new Robot(lockers, strategy);
+            return new Robot(lockers, new PlainStrategy());
         }
 
-        public static Robot CreateBalanceSmartRobot(Locker[] lockers, IStrategy strategy)
+        public static Robot CreateSmartRobot(Locker[] lockers)
         {
-            return new Robot(lockers, strategy);
+            return new Robot(lockers, new SmartStrategy());
+        }
+
+        public static Robot CreateBalanceSmartRobot(Locker[] lockers)
+        {
+            return new Robot(lockers, new BalanceSmartStrategy());
         }
     }
 }
