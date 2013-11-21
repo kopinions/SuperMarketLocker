@@ -14,6 +14,17 @@ namespace SuperMarketLocker
             _strategy = strategy;
         }
 
+        public double GetBalence()
+        {
+            return _lockers.Select(l => l.GetBalence()).Sum()/_lockers.Count();
+        }
+
+        public int AvailableCount
+        {
+            get { return _lockers.Select(l => l.AvailableCount).Sum(); }
+        }
+
+
         public virtual Ticket Store(Bag bag)
         {
             var locker = _strategy.GetLocker(_lockers);
